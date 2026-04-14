@@ -7,15 +7,15 @@ const THEME_SEEN_KEY = "sudoku-theme-seen-v2";
 const AUTH_TOKEN_KEY = "sudoku-auth-token-v1";
 const AUTH_USER_KEY = "sudoku-auth-user-v1";
 const DIFFICULTY_LABELS = {
-    easy: "Р›С‘РіРєР°СЏ",
-    medium: "РЎСЂРµРґРЅСЏСЏ",
-    hard: "РЎР»РѕР¶РЅР°СЏ",
-    expert: "Р­РєСЃРїРµСЂС‚"
+    easy: "Лёгкая",
+    medium: "Средняя",
+    hard: "Сложная",
+    expert: "Эксперт"
 };
 const THEME_LABELS = {
-    sunrise: "РЎРѕР»РЅРµС‡РЅР°СЏ",
-    ocean: "РћРєРµР°РЅ",
-    midnight: "РќРѕС‡РЅРѕР№ РЅРµРѕРЅ"
+    sunrise: "Солнечная",
+    ocean: "Океан",
+    midnight: "Ночной неон"
 };
 const CELLS_TO_REMOVE = {
     easy: 36,
@@ -160,7 +160,7 @@ function updateCounters() {
 }
 
 function updateModeIndicator() {
-    modeLabelElement.textContent = notesMode ? "Р—Р°РјРµС‚РєРё" : "Р§РёСЃР»Р°";
+    modeLabelElement.textContent = notesMode ? "Заметки" : "Числа";
     toggleNotesButton.classList.toggle("active", notesMode);
 }
 
@@ -242,7 +242,7 @@ function renderBoard() {
             cell.className = "cell";
             cell.dataset.row = String(row);
             cell.dataset.column = String(column);
-            cell.setAttribute("aria-label", `РЎС‚СЂРѕРєР° ${row + 1}, СЃС‚РѕР»Р±РµС† ${column + 1}`);
+            cell.setAttribute("aria-label", `Строка ${row + 1}, столбец ${column + 1}`);
 
             if ((column + 1) % BOX_SIZE === 0 && column !== GRID_SIZE - 1) {
                 cell.classList.add("box-right");
@@ -362,13 +362,13 @@ function applySnapshot(state, fromCloud = false) {
         if (state.currentTheme && THEME_LABELS[state.currentTheme]) {
             applyTheme(state.currentTheme, { persistCloud: false });
         }
-        statusElement.textContent = state.status || "РРіСЂР°РµРј";
+        statusElement.textContent = state.status || "Играем";
         updateTimer();
         updateCounters();
         updateModeIndicator();
         renderBoard();
         setMessage(
-            state.message || (fromCloud ? "РЎРѕСЃС‚РѕСЏРЅРёРµ РёРіСЂС‹ Р·Р°РіСЂСѓР¶РµРЅРѕ РёР· РѕР±Р»Р°РєР°." : "РџСЂРѕРґРѕР»Р¶Р°РµРј СЃРѕС…СЂР°РЅС‘РЅРЅСѓСЋ РёРіСЂСѓ."),
+            state.message || (fromCloud ? "Состояние игры загружено из облака." : "Продолжаем сохранённую игру."),
             state.messageType || ""
         );
         hasSavedGame = true;
@@ -397,7 +397,7 @@ function restoreSavedGame() {
 
 function toggleNote(value) {
     if (!selectedCell || gameCompleted) {
-        setMessage("РЎРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРёС‚Рµ РєР»РµС‚РєСѓ РґР»СЏ Р·Р°РјРµС‚РѕРє.", "warning");
+        setMessage("Сначала выберите клетку для заметок.", "warning");
         return;
     }
 
@@ -407,7 +407,7 @@ function toggleNote(value) {
     }
 
     if (currentBoard[row][column] !== 0) {
-        setMessage("РћС‡РёСЃС‚РёС‚Рµ С‡РёСЃР»Рѕ РІ РєР»РµС‚РєРµ, С‡С‚РѕР±С‹ РґРѕР±Р°РІРёС‚СЊ Р·Р°РјРµС‚РєРё.", "warning");
+        setMessage("Очистите число в клетке, чтобы добавить заметки.", "warning");
         return;
     }
 
@@ -417,7 +417,7 @@ function toggleNote(value) {
         : [...notes, value].sort((a, b) => a - b);
 
     renderBoard();
-    setMessage("Р—Р°РјРµС‚РєРё РѕР±РЅРѕРІР»РµРЅС‹.");
+    setMessage("Заметки обновлены.");
     persistGameState();
 }
 
@@ -428,7 +428,7 @@ function placeValue(value) {
     }
 
     if (!selectedCell || gameCompleted) {
-        setMessage("РЎРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРёС‚Рµ РїСѓСЃС‚СѓСЋ РєР»РµС‚РєСѓ.", "warning");
+        setMessage("Сначала выберите пустую клетку.", "warning");
         return;
     }
 
@@ -441,9 +441,9 @@ function placeValue(value) {
     notesBoard[row][column] = [];
 
     if (value === 0) {
-        statusElement.textContent = "РРіСЂР°РµРј";
+        statusElement.textContent = "Играем";
         renderBoard();
-        setMessage("РљР»РµС‚РєР° РѕС‡РёС‰РµРЅР°.");
+        setMessage("Клетка очищена.");
         persistGameState();
         return;
     }
@@ -451,16 +451,16 @@ function placeValue(value) {
     if (value !== solutionBoard[row][column]) {
         errorCount += 1;
         updateCounters();
-        statusElement.textContent = "Р•СЃС‚СЊ РѕС€РёР±РєРё";
+        statusElement.textContent = "Есть ошибки";
         renderBoard();
-        setMessage("Р•СЃС‚СЊ РєРѕРЅС„Р»РёРєС‚. РџСЂРѕРІРµСЂСЊС‚Рµ СЃС‚СЂРѕРєСѓ, СЃС‚РѕР»Р±РµС† РёР»Рё РєРІР°РґСЂР°С‚ 3x3.", "warning");
+        setMessage("Есть конфликт. Проверьте строку, столбец или квадрат 3x3.", "warning");
         persistGameState();
         return;
     }
 
-    statusElement.textContent = "РРіСЂР°РµРј";
+    statusElement.textContent = "Играем";
     renderBoard();
-    setMessage("РҐРѕРґ РїСЂРёРЅСЏС‚.");
+    setMessage("Ход принят.");
     persistGameState();
     checkForWin();
 }
@@ -480,7 +480,7 @@ function fillHint() {
     }
 
     if (emptyCells.length === 0) {
-        setMessage("РџСѓСЃС‚С‹С… РєР»РµС‚РѕРє РЅРµ РѕСЃС‚Р°Р»РѕСЃСЊ.", "warning");
+        setMessage("Пустых клеток не осталось.", "warning");
         checkForWin();
         return;
     }
@@ -492,7 +492,7 @@ function fillHint() {
     hintCount += 1;
     updateCounters();
     renderBoard();
-    setMessage("РџРѕРґСЃРєР°Р·РєР° РѕС‚РєСЂС‹Р»Р° РѕРґРЅРѕ РїСЂР°РІРёР»СЊРЅРѕРµ С‡РёСЃР»Рѕ.");
+    setMessage("Подсказка открыла одно правильное число.");
     persistGameState();
     checkForWin();
 }
@@ -505,11 +505,11 @@ function resetBoard() {
     errorCount = 0;
     hintCount = 0;
     notesMode = false;
-    statusElement.textContent = "РРіСЂР°РµРј";
+    statusElement.textContent = "Играем";
     updateCounters();
     updateModeIndicator();
     renderBoard();
-    setMessage("РџРѕР»Рµ СЃР±СЂРѕС€РµРЅРѕ Рє РЅР°С‡Р°Р»Сѓ С‚РµРєСѓС‰РµР№ РїР°СЂС‚РёРё.");
+    setMessage("Поле сброшено к началу текущей партии.");
     persistGameState();
 }
 
@@ -519,9 +519,9 @@ function solveCurrentBoard() {
     selectedCell = null;
     gameCompleted = true;
     stopTimer();
-    statusElement.textContent = "Р РµС€РµРЅРѕ";
+    statusElement.textContent = "Решено";
     renderBoard();
-    setMessage("РЎСѓРґРѕРєСѓ СЂРµС€РµРЅР° Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё.", "success");
+    setMessage("Судоку решена автоматически.", "success");
     persistGameState();
 }
 
@@ -543,15 +543,15 @@ function checkBoard() {
     renderBoard();
 
     if (hasErrors) {
-        statusElement.textContent = "Р•СЃС‚СЊ РѕС€РёР±РєРё";
-        setMessage("Р’ РїРѕР»Рµ РµСЃС‚СЊ РЅРµРІРµСЂРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ.", "warning");
+        statusElement.textContent = "Есть ошибки";
+        setMessage("В поле есть неверные значения.", "warning");
         persistGameState();
         return;
     }
 
     if (hasEmpty) {
-        statusElement.textContent = "РџРѕС‡С‚Рё РіРѕС‚РѕРІРѕ";
-        setMessage("РћС€РёР±РѕРє РЅРµС‚, РЅРѕ РїРѕР»Рµ РµС‰С‘ РЅРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»РЅРѕСЃС‚СЊСЋ.");
+        statusElement.textContent = "Почти готово";
+        setMessage("Ошибок нет, но поле ещё не заполнено полностью.");
         persistGameState();
         return;
     }
@@ -587,7 +587,7 @@ function renderRecordList(records) {
     const list = records[difficulty] || [];
 
     if (list.length === 0) {
-        recordsTableElement.innerHTML = '<div class="records-table__empty">РџРѕРєР° СЂРµРєРѕСЂРґРѕРІ РЅРµС‚. РЎС‹РіСЂР°Р№С‚Рµ РїРµСЂРІСѓСЋ РїР°СЂС‚РёСЋ РЅР° СЌС‚РѕРј СѓСЂРѕРІРЅРµ.</div>';
+        recordsTableElement.innerHTML = '<div class="records-table__empty">Пока рекордов нет. Сыграйте первую партию на этом уровне.</div>';
         return;
     }
 
@@ -596,7 +596,7 @@ function renderRecordList(records) {
             <div class="records-table__place">${index + 1}</div>
             <div>
                 <strong>${formatTime(record.time)}</strong>
-                <div class="records-table__meta">${record.date} В· РћС€РёР±РєРё: ${record.errors} В· РџРѕРґСЃРєР°Р·РєРё: ${record.hints}</div>
+                <div class="records-table__meta">${record.date} · Ошибки: ${record.errors} · Подсказки: ${record.hints}</div>
             </div>
             <div>${DIFFICULTY_LABELS[difficulty]}</div>
         </div>
@@ -626,7 +626,7 @@ async function apiRequest(path, options = {}) {
     }
 
     if (!response.ok) {
-        throw new Error(payload.message || "РћС€РёР±РєР° СЃРµСЂРІРµСЂР°");
+        throw new Error(payload.message || "Ошибка сервера");
     }
 
     return payload;
@@ -639,7 +639,7 @@ async function renderRecords() {
             renderRecordList(payload.records || {});
             return;
         } catch {
-            setAuthStatus("РЎРµСЂРІРµСЂРЅС‹Рµ СЂРµРєРѕСЂРґС‹ РІСЂРµРјРµРЅРЅРѕ РЅРµРґРѕСЃС‚СѓРїРЅС‹. РџРѕРєР°Р·С‹РІР°СЋ Р»РѕРєР°Р»СЊРЅС‹Рµ.", "warning");
+            setAuthStatus("Серверные рекорды временно недоступны. Показываю локальные.", "warning");
         }
     }
 
@@ -664,7 +664,7 @@ async function saveRecord() {
             renderRecordList(payload.records || {});
             return;
         } catch {
-            setAuthStatus("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕС…СЂР°РЅРёС‚СЊ СЂРµРєРѕСЂРґ РЅР° СЃРµСЂРІРµСЂРµ. РЎРѕС…СЂР°РЅСЏСЋ Р»РѕРєР°Р»СЊРЅРѕ.", "warning");
+            setAuthStatus("Не удалось сохранить рекорд на сервере. Сохраняю локально.", "warning");
         }
     }
 
@@ -688,7 +688,7 @@ function launchVictoryAnimation() {
 }
 
 function openVictoryOverlay() {
-    victoryTextElement.textContent = `Р’СЂРµРјСЏ: ${formatTime(secondsElapsed)} В· РћС€РёР±РєРё: ${errorCount} В· РџРѕРґСЃРєР°Р·РєРё: ${hintCount}.`;
+    victoryTextElement.textContent = `Время: ${formatTime(secondsElapsed)} · Ошибки: ${errorCount} · Подсказки: ${hintCount}.`;
     victoryOverlay.classList.add("visible");
     victoryOverlay.setAttribute("aria-hidden", "false");
     launchVictoryAnimation();
@@ -721,8 +721,8 @@ function checkForWin() {
 
     gameCompleted = true;
     stopTimer();
-    statusElement.textContent = "РџРѕР±РµРґР°";
-    setMessage("РџРѕР·РґСЂР°РІР»СЏРµРј! РЎСѓРґРѕРєСѓ СЂРµС€РµРЅР° РїСЂР°РІРёР»СЊРЅРѕ.", "success");
+    statusElement.textContent = "Победа";
+    setMessage("Поздравляем! Судоку решена правильно.", "success");
     renderBoard();
     saveRecord();
     persistGameState();
@@ -744,14 +744,14 @@ function startNewGame() {
     notesMode = false;
     difficultyLabel.textContent = DIFFICULTY_LABELS[currentDifficulty];
     recordsDifficultySelect.value = currentDifficulty;
-    statusElement.textContent = "РРіСЂР°РµРј";
+    statusElement.textContent = "Играем";
     updateTimer();
     updateCounters();
     updateModeIndicator();
     renderBoard();
     renderRecords();
     closeVictoryOverlay();
-    setMessage("РќРѕРІР°СЏ РїР°СЂС‚РёСЏ РіРѕС‚РѕРІР°. РЈРґР°С‡Рё!");
+    setMessage("Новая партия готова. Удачи!");
     persistGameState();
     startTimer();
     hasSavedGame = true;
@@ -761,7 +761,7 @@ function startNewGame() {
 function toggleNotesMode() {
     notesMode = !notesMode;
     updateModeIndicator();
-    setMessage(notesMode ? "Р РµР¶РёРј Р·Р°РјРµС‚РѕРє РІРєР»СЋС‡С‘РЅ." : "Р РµР¶РёРј РІРІРѕРґР° С‡РёСЃРµР» РІРєР»СЋС‡С‘РЅ.");
+    setMessage(notesMode ? "Режим заметок включён." : "Режим ввода чисел включён.");
     persistGameState();
 }
 
@@ -769,7 +769,7 @@ function applyTheme(themeName, options = {}) {
     const { persistCloud = true } = options;
     currentTheme = themeName;
     document.body.dataset.theme = themeName;
-    themeSummaryElement.textContent = `РўРµРјР°: ${THEME_LABELS[themeName]}`;
+    themeSummaryElement.textContent = `Тема: ${THEME_LABELS[themeName]}`;
     localStorage.setItem(THEME_KEY, themeName);
 
     themeGrid.querySelectorAll(".theme-card").forEach((card) => {
@@ -802,7 +802,7 @@ function continueSavedGame() {
     if (!gameCompleted) {
         startTimer();
     }
-    setMessage("РџСЂРѕРґРѕР»Р¶Р°РµРј РёРіСЂСѓ.");
+    setMessage("Продолжаем игру.");
 }
 
 async function pushCloudState(snapshot = getStateSnapshot(), options = {}) {
@@ -816,12 +816,12 @@ async function pushCloudState(snapshot = getStateSnapshot(), options = {}) {
             body: JSON.stringify({ state: snapshot })
         });
         if (!options.silent) {
-            setAuthStatus("РР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹ РЅР° СЃРµСЂРІРµСЂРµ.", "success");
+            setAuthStatus("Изменения сохранены на сервере.", "success");
         }
         return true;
     } catch (error) {
         if (!options.silent) {
-            setAuthStatus(error.message || "РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕС…СЂР°РЅРёС‚СЊ РґР°РЅРЅС‹Рµ РЅР° СЃРµСЂРІРµСЂРµ.", "warning");
+            setAuthStatus(error.message || "Не удалось сохранить данные на сервере.", "warning");
         }
         return false;
     }
@@ -854,12 +854,12 @@ async function syncWithCloud(options = {}) {
         }
 
         if (!options.silent) {
-            setAuthStatus("РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ Р·Р°РІРµСЂС€РµРЅР°.", "success");
+            setAuthStatus("Синхронизация завершена.", "success");
         }
         await renderRecords();
         return true;
     } catch (error) {
-        setAuthStatus(error.message || "РЎРµСЂРІРµСЂРЅР°СЏ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°.", "warning");
+        setAuthStatus(error.message || "Серверная синхронизация недоступна.", "warning");
         return false;
     } finally {
         cloudSyncInFlight = false;
@@ -871,16 +871,16 @@ function updateAuthUI() {
     const loggedIn = Boolean(authToken && currentUser);
     authFormElement.classList.toggle("hidden", loggedIn);
     accountPanelElement.classList.toggle("hidden", !loggedIn);
-    accountUserElement.textContent = loggedIn ? currentUser : "Р“РѕСЃС‚СЊ";
+    accountUserElement.textContent = loggedIn ? currentUser : "Гость";
     accountNoteElement.textContent = loggedIn
-        ? "РЎРѕС…СЂР°РЅРµРЅРёРµ РёРґС‘С‚ РІ РѕР±Р»Р°РєРѕ Рё СЃРёРЅС…СЂРѕРЅРёР·РёСЂСѓРµС‚СЃСЏ РјРµР¶РґСѓ СѓСЃС‚СЂРѕР№СЃС‚РІР°РјРё."
-        : "РЎРµСЂРІРµСЂРЅР°СЏ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РѕС‚РєР»СЋС‡РµРЅР°.";
+        ? "Сохранение идёт в облако и синхронизируется между устройствами."
+        : "Серверная синхронизация отключена.";
 
     if (!API_READY) {
         loginButton.disabled = true;
         registerButton.disabled = true;
         syncNowButton.disabled = true;
-        setAuthStatus("РЈРєР°Р¶РёС‚Рµ SERVER_URL РІ script.js РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ СѓРґР°Р»С‘РЅРЅС‹Рј СЃРµСЂРІРµСЂРѕРј.", "warning");
+        setAuthStatus("Укажите SERVER_URL в script.js для работы с удалённым сервером.", "warning");
         return;
     }
 
@@ -889,7 +889,7 @@ function updateAuthUI() {
     syncNowButton.disabled = !loggedIn;
 
     if (!loggedIn) {
-        setAuthStatus("Р“РѕСЃС‚РµРІРѕР№ СЂРµР¶РёРј: СЃРѕС…СЂР°РЅРµРЅРёРµ РёРґС‘С‚ С‚РѕР»СЊРєРѕ РІ СЌС‚РѕРј Р±СЂР°СѓР·РµСЂРµ.");
+        setAuthStatus("Гостевой режим: сохранение идёт только в этом браузере.");
     }
 }
 
@@ -898,11 +898,11 @@ async function handleRegister() {
     const password = authPasswordInput.value;
 
     if (username.length < 3) {
-        setAuthStatus("РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РЅРµ РєРѕСЂРѕС‡Рµ 3 СЃРёРјРІРѕР»РѕРІ.", "warning");
+        setAuthStatus("Имя пользователя должно быть не короче 3 символов.", "warning");
         return;
     }
     if (password.length < 6) {
-        setAuthStatus("РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РЅРµ РєРѕСЂРѕС‡Рµ 6 СЃРёРјРІРѕР»РѕРІ.", "warning");
+        setAuthStatus("Пароль должен быть не короче 6 символов.", "warning");
         return;
     }
 
@@ -916,10 +916,10 @@ async function handleRegister() {
         persistAuth();
         authPasswordInput.value = "";
         updateAuthUI();
-        setAuthStatus("РђРєРєР°СѓРЅС‚ СЃРѕР·РґР°РЅ. РћР±Р»Р°С‡РЅРѕРµ СЃРѕС…СЂР°РЅРµРЅРёРµ РІРєР»СЋС‡РµРЅРѕ.", "success");
+        setAuthStatus("Аккаунт создан. Облачное сохранение включено.", "success");
         await syncWithCloud({ silent: true });
     } catch (error) {
-        setAuthStatus(error.message || "РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ Р°РєРєР°СѓРЅС‚.", "warning");
+        setAuthStatus(error.message || "Не удалось создать аккаунт.", "warning");
     }
 }
 
@@ -928,7 +928,7 @@ async function handleLogin() {
     const password = authPasswordInput.value;
 
     if (!username || !password) {
-        setAuthStatus("Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РїР°СЂРѕР»СЊ.", "warning");
+        setAuthStatus("Введите имя пользователя и пароль.", "warning");
         return;
     }
 
@@ -942,10 +942,10 @@ async function handleLogin() {
         persistAuth();
         authPasswordInput.value = "";
         updateAuthUI();
-        setAuthStatus("Р’С…РѕРґ РІС‹РїРѕР»РЅРµРЅ. РЎРёРЅС…СЂРѕРЅРёР·РёСЂСѓСЋ РґР°РЅРЅС‹Рµ.", "success");
+        setAuthStatus("Вход выполнен. Синхронизирую данные.", "success");
         await syncWithCloud({ silent: true });
     } catch (error) {
-        setAuthStatus(error.message || "РќРµ СѓРґР°Р»РѕСЃСЊ РІРѕР№С‚Рё РІ Р°РєРєР°СѓРЅС‚.", "warning");
+        setAuthStatus(error.message || "Не удалось войти в аккаунт.", "warning");
     }
 }
 
@@ -955,7 +955,7 @@ async function handleLogout() {
             await apiRequest("/api/logout", { method: "POST" });
         }
     } catch {
-        // РќРёС‡РµРіРѕ СЃС‚СЂР°С€РЅРѕРіРѕ.
+        // Ничего страшного.
     }
 
     authToken = "";
@@ -963,7 +963,7 @@ async function handleLogout() {
     persistAuth();
     updateAuthUI();
     await renderRecords();
-    setAuthStatus("Р’С‹ РІС‹С€Р»Рё РёР· Р°РєРєР°СѓРЅС‚Р°. РРіСЂР° РїСЂРѕРґРѕР»Р¶РёС‚ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ С‚РѕР»СЊРєРѕ Р»РѕРєР°Р»СЊРЅРѕ.");
+    setAuthStatus("Вы вышли из аккаунта. Игра продолжит сохраняться только локально.");
 }
 
 async function restoreServerSession() {
@@ -983,7 +983,7 @@ async function restoreServerSession() {
         currentUser = "";
         persistAuth();
         updateAuthUI();
-        setAuthStatus("РќРµ СѓРґР°Р»РѕСЃСЊ РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРµСЂРІРµСЂРЅСѓСЋ СЃРµСЃСЃРёСЋ. Р Р°Р±РѕС‚Р°РµРј Р»РѕРєР°Р»СЊРЅРѕ.", "warning");
+        setAuthStatus("Не удалось восстановить серверную сессию. Работаем локально.", "warning");
     }
 }
 
@@ -1025,7 +1025,7 @@ startPlayButton.addEventListener("click", () => {
         if (!gameCompleted) {
             startTimer();
         }
-        setMessage("РРіСЂР° РїСЂРѕРґРѕР»Р¶Р°РµС‚СЃСЏ.");
+        setMessage("Игра продолжается.");
     }
 });
 continueGameButton.addEventListener("click", continueSavedGame);
