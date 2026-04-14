@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>РЎСѓРґРѕРєСѓ</title>
+    <title>Судоку</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body data-theme="sunrise">
     <div class="start-screen visible" id="start-screen" aria-hidden="false">
         <div class="start-screen__panel">
-            <p class="eyebrow">Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ</p>
-            <h1>РЎСѓРґРѕРєСѓ</h1>
+            <p class="eyebrow">Добро пожаловать</p>
+            <h1>Судоку</h1>
             <p class="start-screen__text">
-                Р›РѕРіРёС‡РµСЃРєР°СЏ РёРіСЂР° СЃ РєСЂР°СЃРёРІС‹РјРё С‚РµРјР°РјРё, Р·Р°РјРµС‚РєР°РјРё, СЂРµРєРѕСЂРґР°РјРё Рё РЅРµСЃРєРѕР»СЊРєРёРјРё СѓСЂРѕРІРЅСЏРјРё СЃР»РѕР¶РЅРѕСЃС‚Рё.
-                РђРІС‚РѕСЂРёР·Р°С†РёСЏ, СЃРµСЂРІРµСЂРЅР°СЏ РїР°РјСЏС‚СЊ Рё СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РјРµР¶РґСѓ СѓСЃС‚СЂРѕР№СЃС‚РІР°РјРё СЂР°Р±РѕС‚Р°СЋС‚ РїСЂРё Р·Р°РїСѓСЃРєРµ С‡РµСЂРµР· СЃРµСЂРІРµСЂ.
+                Логическая игра с красивыми темами, заметками, рекордами и несколькими уровнями сложности.
+                Авторизация, серверная память и синхронизация между устройствами работают при запуске через сервер.
             </p>
             <div class="start-screen__actions">
-                <button id="start-play" class="primary" type="button">РРіСЂР°С‚СЊ</button>
-                <button id="continue-game" type="button">РџСЂРѕРґРѕР»Р¶РёС‚СЊ</button>
-                <button id="start-themes" type="button">Р’С‹Р±СЂР°С‚СЊ С‚РµРјСѓ</button>
+                <button id="start-play" class="primary" type="button">Играть</button>
+                <button id="continue-game" type="button">Продолжить</button>
+                <button id="start-themes" type="button">Выбрать тему</button>
             </div>
             <div class="start-screen__features">
                 <div class="start-screen__feature">
-                    <strong>4 СѓСЂРѕРІРЅСЏ</strong>
-                    <span>РћС‚ Р»С‘РіРєРѕР№ РїР°СЂС‚РёРё РґРѕ СЌРєСЃРїРµСЂС‚РЅРѕР№</span>
+                    <strong>4 уровня</strong>
+                    <span>От лёгкой партии до экспертной</span>
                 </div>
                 <div class="start-screen__feature">
-                    <strong>Р—Р°РјРµС‚РєРё</strong>
-                    <span>РњР°Р»РµРЅСЊРєРёРµ РєР°РЅРґРёРґР°С‚С‹ РІ РєР»РµС‚РєР°С…</span>
+                    <strong>Заметки</strong>
+                    <span>Маленькие кандидаты в клетках</span>
                 </div>
                 <div class="start-screen__feature">
-                    <strong>РћР±Р»Р°РєРѕ</strong>
-                    <span>Р’С…РѕРґ, СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ Рё СЃРµСЂРІРµСЂРЅРѕРµ С…СЂР°РЅРµРЅРёРµ РїСЂРѕРіСЂРµСЃСЃР°</span>
+                    <strong>Облако</strong>
+                    <span>Вход, синхронизация и серверное хранение прогресса</span>
                 </div>
             </div>
         </div>
@@ -39,39 +39,39 @@
 
     <div class="theme-screen" id="theme-screen" aria-hidden="true">
         <div class="theme-screen__panel">
-            <p class="eyebrow">Р’С‹Р±РѕСЂ С‚РµРјС‹</p>
-            <h2>РќР°СЃС‚СЂРѕР№С‚Рµ Р°С‚РјРѕСЃС„РµСЂСѓ РёРіСЂС‹</h2>
-            <p class="theme-screen__text">Р’С‹Р±РµСЂРёС‚Рµ РѕС„РѕСЂРјР»РµРЅРёРµ РґР»СЏ РїР°СЂС‚РёРё. РўРµРјСѓ РјРѕР¶РЅРѕ РјРµРЅСЏС‚СЊ РІ Р»СЋР±РѕР№ РјРѕРјРµРЅС‚.</p>
+            <p class="eyebrow">Выбор темы</p>
+            <h2>Настройте атмосферу игры</h2>
+            <p class="theme-screen__text">Выберите оформление для партии. Тему можно менять в любой момент.</p>
             <div class="theme-grid" id="theme-grid">
                 <button class="theme-card" data-theme="sunrise" type="button">
                     <span class="theme-card__preview sunrise"></span>
-                    <strong>РЎРѕР»РЅРµС‡РЅР°СЏ</strong>
-                    <span>РўС‘РїР»С‹Рµ РјСЏРіРєРёРµ С†РІРµС‚Р°</span>
+                    <strong>Солнечная</strong>
+                    <span>Тёплые мягкие цвета</span>
                 </button>
                 <button class="theme-card" data-theme="ocean" type="button">
                     <span class="theme-card__preview ocean"></span>
-                    <strong>РћРєРµР°РЅ</strong>
-                    <span>РЎРІРµР¶РёР№ Р±РёСЂСЋР·РѕРІС‹Р№ СЃС‚РёР»СЊ</span>
+                    <strong>Океан</strong>
+                    <span>Свежий бирюзовый стиль</span>
                 </button>
                 <button class="theme-card" data-theme="midnight" type="button">
                     <span class="theme-card__preview midnight"></span>
-                    <strong>РќРѕС‡РЅРѕР№ РЅРµРѕРЅ</strong>
-                    <span>РўС‘РјРЅР°СЏ С‚РµРјР° СЃ Р°РґР°РїС‚РёСЂРѕРІР°РЅРЅС‹Рј С‡РёС‚Р°РµРјС‹Рј С€СЂРёС„С‚РѕРј</span>
+                    <strong>Ночной неон</strong>
+                    <span>Тёмная тема с адаптированным читаемым шрифтом</span>
                 </button>
             </div>
-            <button id="close-theme-screen" class="primary theme-screen__action" type="button">РќР°С‡Р°С‚СЊ РёРіСЂСѓ</button>
+            <button id="close-theme-screen" class="primary theme-screen__action" type="button">Начать игру</button>
         </div>
     </div>
 
     <div class="victory-overlay" id="victory-overlay" aria-hidden="true">
         <div class="confetti-layer" id="confetti-layer"></div>
         <div class="victory-card">
-            <p class="eyebrow">РџРѕР±РµРґР°</p>
-            <h2>РЎСѓРґРѕРєСѓ СЂРµС€РµРЅР°!</h2>
-            <p id="victory-text">Р’С‹ СЃРѕР±СЂР°Р»Рё РїРѕР»Рµ Рё РїРѕРєР°Р·Р°Р»Рё РѕС‚Р»РёС‡РЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚.</p>
+            <p class="eyebrow">Победа</p>
+            <h2>Судоку решена!</h2>
+            <p id="victory-text">Вы собрали поле и показали отличный результат.</p>
             <div class="victory-actions">
-                <button id="play-again" class="primary" type="button">РќРѕРІР°СЏ РїР°СЂС‚РёСЏ</button>
-                <button id="close-victory" type="button">РџСЂРѕРґРѕР»Р¶РёС‚СЊ</button>
+                <button id="play-again" class="primary" type="button">Новая партия</button>
+                <button id="close-victory" type="button">Продолжить</button>
             </div>
         </div>
     </div>
@@ -79,111 +79,111 @@
     <div class="app-shell">
         <header class="hero">
             <div class="hero-copy">
-                <p class="eyebrow">РџРѕР»РЅРѕС†РµРЅРЅР°СЏ Р»РѕРіРёС‡РµСЃРєР°СЏ РёРіСЂР°</p>
-                <h1>РЎСѓРґРѕРєСѓ</h1>
+                <p class="eyebrow">Полноценная логическая игра</p>
+                <h1>Судоку</h1>
                 <p class="hero-text">
-                    Р СѓСЃСЃРєРѕСЏР·С‹С‡РЅР°СЏ РІРµСЂСЃРёСЏ СЃ С‚РµРјР°РјРё РѕС„РѕСЂРјР»РµРЅРёСЏ, СЂРµРєРѕСЂРґР°РјРё, Р·Р°РјРµС‚РєР°РјРё РІ РєР»РµС‚РєР°С…,
-                    РїРѕРґСЃРєР°Р·РєР°РјРё, Р°РІС‚РѕСЃРѕС…СЂР°РЅРµРЅРёРµРј, РІС…РѕРґРѕРј РїРѕ РёРјРµРЅРё Рё РїР°СЂРѕР»СЋ Рё РѕР±Р»Р°С‡РЅРѕР№ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРµР№.
+                    Русскоязычная версия с темами оформления, рекордами, заметками в клетках,
+                    подсказками, автосохранением, входом по имени и паролю и облачной синхронизацией.
                 </p>
             </div>
             <div class="stats-card">
                 <div class="stat">
-                    <span class="stat-label">РЎР»РѕР¶РЅРѕСЃС‚СЊ</span>
-                    <strong id="current-difficulty">РЎСЂРµРґРЅСЏСЏ</strong>
+                    <span class="stat-label">Сложность</span>
+                    <strong id="current-difficulty">Средняя</strong>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">Р’СЂРµРјСЏ</span>
+                    <span class="stat-label">Время</span>
                     <strong id="timer">00:00</strong>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">РЎС‚Р°С‚СѓСЃ</span>
-                    <strong id="game-status">РРіСЂР°РµРј</strong>
+                    <span class="stat-label">Статус</span>
+                    <strong id="game-status">Играем</strong>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">РћС€РёР±РєРё</span>
+                    <span class="stat-label">Ошибки</span>
                     <strong id="error-count">0</strong>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">РџРѕРґСЃРєР°Р·РєРё</span>
+                    <span class="stat-label">Подсказки</span>
                     <strong id="hint-count">0</strong>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">Р РµР¶РёРј</span>
-                    <strong id="mode-label">Р§РёСЃР»Р°</strong>
+                    <span class="stat-label">Режим</span>
+                    <strong id="mode-label">Числа</strong>
                 </div>
             </div>
         </header>
 
         <main class="game-layout">
             <aside class="panel controls-panel">
-                <h2>РџР°РЅРµР»СЊ РёРіСЂС‹</h2>
-                <label class="field-label" for="difficulty">Р’С‹Р±РµСЂРёС‚Рµ СѓСЂРѕРІРµРЅСЊ</label>
+                <h2>Панель игры</h2>
+                <label class="field-label" for="difficulty">Выберите уровень</label>
                 <select id="difficulty">
-                    <option value="easy">Р›С‘РіРєР°СЏ</option>
-                    <option value="medium" selected>РЎСЂРµРґРЅСЏСЏ</option>
-                    <option value="hard">РЎР»РѕР¶РЅР°СЏ</option>
-                    <option value="expert">Р­РєСЃРїРµСЂС‚</option>
+                    <option value="easy">Лёгкая</option>
+                    <option value="medium" selected>Средняя</option>
+                    <option value="hard">Сложная</option>
+                    <option value="expert">Эксперт</option>
                 </select>
 
                 <div class="button-group">
-                    <button id="new-game" class="primary" type="button">РќРѕРІР°СЏ РёРіСЂР°</button>
-                    <button id="toggle-notes" type="button">Р РµР¶РёРј Р·Р°РјРµС‚РѕРє</button>
-                    <button id="open-theme-screen" type="button">РўРµРјС‹ РѕС„РѕСЂРјР»РµРЅРёСЏ</button>
-                    <button id="check-board" type="button">РџСЂРѕРІРµСЂРёС‚СЊ РїРѕР»Рµ</button>
-                    <button id="hint" type="button">РџРѕРґСЃРєР°Р·РєР°</button>
-                    <button id="reset-board" type="button">РЎР±СЂРѕСЃРёС‚СЊ С…РѕРґ</button>
-                    <button id="solve-board" class="accent-alt" type="button">Р РµС€РёС‚СЊ СЃСѓРґРѕРєСѓ</button>
+                    <button id="new-game" class="primary" type="button">Новая игра</button>
+                    <button id="toggle-notes" type="button">Режим заметок</button>
+                    <button id="open-theme-screen" type="button">Темы оформления</button>
+                    <button id="check-board" type="button">Проверить поле</button>
+                    <button id="hint" type="button">Подсказка</button>
+                    <button id="reset-board" type="button">Сбросить ход</button>
+                    <button id="solve-board" class="accent-alt" type="button">Решить судоку</button>
                 </div>
 
                 <div class="auth-card">
-                    <h3>РђРєРєР°СѓРЅС‚ Рё СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ</h3>
-                    <p>Р’РѕР№РґРёС‚Рµ РїРѕ РёРјРµРЅРё Рё РїР°СЂРѕР»СЋ, С‡С‚РѕР±С‹ С…СЂР°РЅРёС‚СЊ РїСЂРѕРіСЂРµСЃСЃ РЅР° СЃРµСЂРІРµСЂРµ Рё РїСЂРѕРґРѕР»Р¶Р°С‚СЊ РёРіСЂСѓ РЅР° РґСЂСѓРіРѕРј СѓСЃС‚СЂРѕР№СЃС‚РІРµ.</p>
+                    <h3>Аккаунт и синхронизация</h3>
+                    <p>Войдите по имени и паролю, чтобы хранить прогресс на сервере и продолжать игру на другом устройстве.</p>
 
                     <div class="auth-form" id="auth-form">
-                        <label class="field-label compact" for="auth-username">РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</label>
-                        <input id="auth-username" type="text" autocomplete="username" placeholder="РќР°РїСЂРёРјРµСЂ, ivan">
+                        <label class="field-label compact" for="auth-username">Имя пользователя</label>
+                        <input id="auth-username" type="text" autocomplete="username" placeholder="Например, ivan">
 
-                        <label class="field-label compact" for="auth-password">РџР°СЂРѕР»СЊ</label>
-                        <input id="auth-password" type="password" autocomplete="current-password" placeholder="РњРёРЅРёРјСѓРј 6 СЃРёРјРІРѕР»РѕРІ">
+                        <label class="field-label compact" for="auth-password">Пароль</label>
+                        <input id="auth-password" type="password" autocomplete="current-password" placeholder="Минимум 6 символов">
 
                         <div class="button-group auth-actions">
-                            <button id="login-button" type="button">Р’РѕР№С‚Рё</button>
-                            <button id="register-button" class="primary" type="button">РЎРѕР·РґР°С‚СЊ Р°РєРєР°СѓРЅС‚</button>
+                            <button id="login-button" type="button">Войти</button>
+                            <button id="register-button" class="primary" type="button">Создать аккаунт</button>
                         </div>
                     </div>
 
                     <div class="account-panel hidden" id="account-panel">
-                        <p class="account-user" id="account-user">Р“РѕСЃС‚СЊ</p>
-                        <p class="account-note" id="account-note">РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РѕС‚РєР»СЋС‡РµРЅР°.</p>
+                        <p class="account-user" id="account-user">Гость</p>
+                        <p class="account-note" id="account-note">Синхронизация отключена.</p>
                         <div class="button-group auth-actions">
-                            <button id="sync-now" type="button">РЎРёРЅС…СЂРѕРЅРёР·РёСЂРѕРІР°С‚СЊ</button>
-                            <button id="logout-button" type="button">Р’С‹Р№С‚Рё</button>
+                            <button id="sync-now" type="button">Синхронизировать</button>
+                            <button id="logout-button" type="button">Выйти</button>
                         </div>
                     </div>
 
-                    <p id="auth-status" class="auth-status">Р“РѕСЃС‚РµРІРѕР№ СЂРµР¶РёРј: СЃРѕС…СЂР°РЅРµРЅРёРµ РёРґС‘С‚ С‚РѕР»СЊРєРѕ РІ СЌС‚РѕРј Р±СЂР°СѓР·РµСЂРµ.</p>
+                    <p id="auth-status" class="auth-status">Гостевой режим: сохранение идёт только в этом браузере.</p>
                 </div>
 
                 <div class="info-card">
-                    <h3>РљР°Рє РёРіСЂР°С‚СЊ</h3>
-                    <p>Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»Рµ С‚Р°Рє, С‡С‚РѕР±С‹ С†РёС„СЂС‹ РѕС‚ 1 РґРѕ 9 РЅРµ РїРѕРІС‚РѕСЂСЏР»РёСЃСЊ РІ СЃС‚СЂРѕРєР°С…, СЃС‚РѕР»Р±С†Р°С… Рё Р±Р»РѕРєР°С… 3x3.</p>
-                    <p>Р’ СЂРµР¶РёРјРµ Р·Р°РјРµС‚РѕРє РјРѕР¶РЅРѕ СЃС‚Р°РІРёС‚СЊ РјР°Р»РµРЅСЊРєРёРµ РєР°РЅРґРёРґР°С‚С‹, РєР°Рє РІ РЅР°СЃС‚РѕСЏС‰РёС… РїСЂРёР»РѕР¶РµРЅРёСЏС… РЎСѓРґРѕРєСѓ.</p>
+                    <h3>Как играть</h3>
+                    <p>Заполните поле так, чтобы цифры от 1 до 9 не повторялись в строках, столбцах и блоках 3x3.</p>
+                    <p>В режиме заметок можно ставить маленькие кандидаты, как в настоящих приложениях Судоку.</p>
                 </div>
 
-                <div class="theme-summary" id="theme-summary">РўРµРјР°: РЎРѕР»РЅРµС‡РЅР°СЏ</div>
+                <div class="theme-summary" id="theme-summary">Тема: Солнечная</div>
 
                 <div class="legend">
-                    <div><span class="legend-box fixed"></span>РСЃС…РѕРґРЅС‹Рµ С‡РёСЃР»Р°</div>
-                    <div><span class="legend-box selected"></span>Р’С‹Р±СЂР°РЅРЅР°СЏ РєР»РµС‚РєР°</div>
-                    <div><span class="legend-box related"></span>РЎРІСЏР·Р°РЅРЅР°СЏ РѕР±Р»Р°СЃС‚СЊ</div>
-                    <div><span class="legend-box error"></span>РћС€РёР±РєР°</div>
+                    <div><span class="legend-box fixed"></span>Исходные числа</div>
+                    <div><span class="legend-box selected"></span>Выбранная клетка</div>
+                    <div><span class="legend-box related"></span>Связанная область</div>
+                    <div><span class="legend-box error"></span>Ошибка</div>
                 </div>
             </aside>
 
             <section class="panel board-panel">
-                <div id="board" class="board" aria-label="РРіСЂРѕРІРѕРµ РїРѕР»Рµ РЎСѓРґРѕРєСѓ"></div>
-                <p id="message" class="message">Р’С‹Р±РµСЂРёС‚Рµ РєР»РµС‚РєСѓ Рё РЅР°С‡РЅРёС‚Рµ РёРіСЂСѓ.</p>
-                <div class="number-pad" id="number-pad" aria-label="Р¦РёС„СЂРѕРІР°СЏ РїР°РЅРµР»СЊ">
+                <div id="board" class="board" aria-label="Игровое поле Судоку"></div>
+                <p id="message" class="message">Выберите клетку и начните игру.</p>
+                <div class="number-pad" id="number-pad" aria-label="Цифровая панель">
                     <button data-value="1" type="button">1</button>
                     <button data-value="2" type="button">2</button>
                     <button data-value="3" type="button">3</button>
@@ -193,23 +193,23 @@
                     <button data-value="7" type="button">7</button>
                     <button data-value="8" type="button">8</button>
                     <button data-value="9" type="button">9</button>
-                    <button data-value="clear" class="wide" type="button">РћС‡РёСЃС‚РёС‚СЊ РєР»РµС‚РєСѓ</button>
+                    <button data-value="clear" class="wide" type="button">Очистить клетку</button>
                 </div>
             </section>
 
             <aside class="panel records-panel">
                 <div class="records-header">
                     <div>
-                        <p class="eyebrow">РўР°Р±Р»РёС†Р° СЂРµРєРѕСЂРґРѕРІ</p>
-                        <h2>Р›СѓС‡С€РµРµ РІСЂРµРјСЏ</h2>
+                        <p class="eyebrow">Таблица рекордов</p>
+                        <h2>Лучшее время</h2>
                     </div>
-                    <label class="field-label compact" for="records-difficulty">РЈСЂРѕРІРµРЅСЊ</label>
+                    <label class="field-label compact" for="records-difficulty">Уровень</label>
                 </div>
                 <select id="records-difficulty">
-                    <option value="easy">Р›С‘РіРєР°СЏ</option>
-                    <option value="medium" selected>РЎСЂРµРґРЅСЏСЏ</option>
-                    <option value="hard">РЎР»РѕР¶РЅР°СЏ</option>
-                    <option value="expert">Р­РєСЃРїРµСЂС‚</option>
+                    <option value="easy">Лёгкая</option>
+                    <option value="medium" selected>Средняя</option>
+                    <option value="hard">Сложная</option>
+                    <option value="expert">Эксперт</option>
                 </select>
                 <div id="records-table" class="records-table"></div>
             </aside>
