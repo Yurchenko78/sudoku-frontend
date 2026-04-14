@@ -23,7 +23,7 @@ const CELLS_TO_REMOVE = {
     hard: 54,
     expert: 58
 };
-const SERVER_URL = "";
+const SERVER_URL = "https://api.render.com/deploy/srv-d7f0lnflk1mc73c3dma0?key=n7g65hPHNMM";
 const API_READY = SERVER_URL ? true : window.location.protocol.startsWith("http");
 
 const boardElement = document.getElementById("board");
